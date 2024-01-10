@@ -4,13 +4,13 @@ import ProductCard from "../ProductCard";
 import Filters from "../Filters";
 import SideBar from "../SiderBar";
 import { useParams } from "react-router-dom";
+import { useCart } from "../../context/cartContext";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [cart, setCart] = useState([]);
   const { category } = useParams();
-
+  const { cart, addToCart } = useCart()
   useEffect(() => {
     const fetchNewData = async () => {
       try {
@@ -38,17 +38,7 @@ const Products = () => {
     fetchCategoryData();
   }, []);
 
-  const addToCart = (pid) => {
-    const isInCart = cart.some((item) => item.id === pid);
-    const product = products.find((item) => item.id === pid);
-
-    if (!isInCart) {
-      setCart([...cart, product]);
-    } else {
-      const filteredCart = cart.filter((item) => item.id !== pid);
-      setCart(filteredCart);
-    }
-  };
+  console.log("cart data", cart)
 
   return (
     <>

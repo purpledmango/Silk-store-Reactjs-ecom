@@ -9,6 +9,11 @@ export default {
         "accent-color": "#e71321",
         "footer-color": "#181818",
       },
+      maxHeight: {
+        '0': '0',
+        full: '100%',
+      },
+
     },
   },
   plugins: [],

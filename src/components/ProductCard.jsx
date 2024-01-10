@@ -1,24 +1,27 @@
 /* eslint-disable react/prop-types */
 import { AiFillHeart } from "react-icons/ai";
+import { Link } from "react-router-dom";
 const ProductCard = ({ cart, product, key, addToCart }) => {
   return (
     <li key={key} className="">
       <div className="w-full relative z-10">
-        <img
-          src={product.thumbnail}
-          className="object-cover w-full md:w-[294px] lg:w-[402px] h-[428px] lg:h-[620px] mx-auto"
-        />
+        <Link to={`/products/${product.id}`}>
+          <img
+            src={product.thumbnail}
+            className="object-cover w-full md:w-[294px] lg:w-[402px] h-[428px] lg:h-[620px] mx-auto"
+          />
 
+        </Link>
         {cart.some((cartItem) => cartItem.id === product.id) ? (
           <span
-            onClick={() => addToCart(product.id)}
+            onClick={() => addToCart(product)}
             className="absolute right-9 bottom-6 text-3xl"
           >
             <AiFillHeart className="transition-all hover:scale-110  text-rose-500" />
           </span>
         ) : (
           <span
-            onClick={() => addToCart(product.id)}
+            onClick={() => addToCart(product)}
             className="absolute right-9 bottom-6 text-3xl"
           >
             <AiFillHeart className="transition-all hover:scale-110  hover:opacity-100 text-gray-400 hover:text-rose-500" />

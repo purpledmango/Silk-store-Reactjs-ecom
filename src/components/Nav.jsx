@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import {
-  menuItems,
   menuImgs,
   leftSubItems,
   rightSubLogos,
@@ -10,28 +9,46 @@ import { TfiSearch } from "react-icons/tfi";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { RxCross1 } from "react-icons/rx";
 import { BsArrowRightShort } from "react-icons/bs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Login from "./auth/Login";
+import { fetchAllCategories } from "../services/products.js";
+
 const Nav = () => {
   const [menuShow, setMenuShow] = useState(false);
   const [triggerLogin, setTriggerLogin] = useState(false);
+  const [mainMenu, setMainMenu] = useState([]);
   const [user, setUser] = useState({
     user: null,
     email: null,
     cart: [],
     wishlist: [],
   });
+
   const [mobSearch, setMobSearch] = useState(false);
+
   const mobMenuTrigger = () => {
     setMenuShow(!menuShow);
   };
+
+  useEffect(() => {
+    const fetchCategoryData = async () => {
+      try {
+        const getCategories = await fetchAllCategories();
+        console.log("Fetched Data", getCategories);
+        setMainMenu(getCategories);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchCategoryData();
+  }, []);
 
   return (
     <nav className="w-screen h-24 bg-bg-accent text-typography-default lg:py-6">
       {/* mobileMenu */}
       <div className="block lg:hidden relative">
         {/* Hamburger Button */}
-
         <button
           onClick={mobMenuTrigger}
           className="flex justify-center absolute ml-5 mt-5 pt-2 text-2xl z-0"
@@ -42,9 +59,8 @@ const Nav = () => {
         {/* Close button */}
         <button
           onClick={mobMenuTrigger}
-          className={` ${
-            menuShow ? "block" : "hidden"
-          } absolute h-screen top-auto right-2  z-50 w-full`}
+          className={` ${menuShow ? "block" : "hidden"
+            } absolute h-screen top-auto right-2  z-50 w-full`}
         >
           <div className="bg-opacity-25 bg-gray-700 w-full h-full flex items-center justify-end">
             <div className="bg-opacity-100 ">
@@ -53,30 +69,27 @@ const Nav = () => {
           </div>
         </button>
         <div
-          className={`${
-            menuShow ? "translate-x-0" : "-translate-x-full"
-          } absolute h-screen gap-6 bg-white
+          className={`${menuShow ? "translate-x-0" : "-translate-x-full"
+            } absolute h-screen gap-6 bg-white
         w-5/6  duration-150 transition-transform ease-in-out z-50`}
         >
           <ul className="flex flex-col w-full py-4 px-5 space-y-6">
-            {menuItems.map((item, key) => {
-              return (
-                <li
-                  key={key}
-                  className="w-full flex justify-between items-center hover:text-rose-600 transition-all"
-                >
-                  <div className="flex gap-3 h-full items-center font-bold">
-                    <img
-                      src={menuImgs[key]}
-                      className="w-16 h-16 rounded-full col-span-1"
-                      alt={menuImgs[key]}
-                    ></img>
-                    <span>{item}</span>
-                  </div>
-                  <BsArrowRightShort className="text-xl" />
-                </li>
-              );
-            })}
+            {mainMenu.map((item, key) => (
+              <li
+                key={key}
+                className="w-full flex justify-between items-center hover:text-rose-600 transition-all"
+              >
+                <div className="flex gap-3 h-full items-center font-bold">
+                  <img
+                    src={menuImgs[key]}
+                    className="w-16 h-16 rounded-full col-span-1"
+                    alt={menuImgs[key]}
+                  ></img>
+                  <span>{item}</span>
+                </div>
+                <BsArrowRightShort className="text-xl" />
+              </li>
+            ))}
           </ul>
         </div>
       </div>
@@ -104,13 +117,11 @@ const Nav = () => {
         {/* left Nav Menu */}
         <div className="w-full lg:w-2/6 hidden lg:block">
           <ul className="flex justify-evenly items-center">
-            {leftSubItems.map((item, key) => {
-              return (
-                <li className="text-sm hover:cursor-pointer" key={key}>
-                  {item}
-                </li>
-              );
-            })}
+            {leftSubItems.map((item, key) => (
+              <li className="text-sm hover:cursor-pointer" key={key}>
+                {item}
+              </li>
+            ))}
             <li>
               <PiDotsThreeOutline />
             </li>
@@ -174,19 +185,18 @@ const Nav = () => {
           </ul>
         </div>
       </div>
-      {/* Main Menu */}
-      <div className="hidden lg:block relative w-full pt-8 h-full  bg-bg-accent">
+      {/* Main Menu -- FOR LARGER DISPLAYS */}
+      <div className="hidden md:block relative w-full pt-8 h-full  bg-bg-accent">
         <ul className="flex w-full items-center justify-center gap-12 h-8 bg-bg-accent">
-          {menuItems.map((item, key) => {
-            return (
+          {mainMenu.slice(0, 8).map((item, key) => (
+            <Link to={`products/category/${item}`} key={key}>
               <li
-                key={key}
-                className="border-box text-md font-semi-bold hover:cursor-pointer hover:border-gray-900 hover:border-b-2 "
+                className="capitalize border-box text-md font-semi-bold hover:cursor-pointer hover:border-gray-900 hover:border-b-2"
               >
                 {item}
               </li>
-            );
-          })}
+            </Link>
+          ))}
         </ul>
         {/* Search */}
         <div className="absolute right-2 bottom-3 border-gray-800 border-b-2  mr-5">

@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -15,9 +16,8 @@ const SideBar = ({ cat, setCat, allCategories }) => {
             className="hover:text-orange-500 hover:underline"
           >
             <span
-              className={`${
-                category === cat ? "text-accent-color" : "text-gray-800"
-              } capitalize`}
+              className={`${category === cat ? "text-accent-color" : "text-gray-800"
+                } capitalize`}
             >
               <Link to={`/products/category/${category}/`}>{category}</Link>
             </span>

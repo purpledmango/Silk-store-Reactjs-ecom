@@ -5,18 +5,21 @@ import Home from "./components/pages/Home";
 import Footer from "./components/Footer";
 import Products from "./components/pages/Products";
 import ProductInfo from "./components/pages/ProductInfo";
+import { CartProvider } from "./context/cartContext";
 
 function App() {
   return (
-    <Router>
-      <Nav />
-      <Routes>
-        <Route exact path="/" element={<Home />} />
-        <Route path="/products/category/:category" element={<Products />} />
-        <Route path="/products/:pid" element={<ProductInfo />} />
-      </Routes>
-      <Footer />
-    </Router>
+    <CartProvider>
+      <Router>
+        <Nav />
+        <Routes>
+          <Route exact path="/" element={<Home />} />
+          <Route path="/products/category/:category" element={<Products />} />
+          <Route path="/products/:pid" element={<ProductInfo />} />
+        </Routes>
+        <Footer />
+      </Router>
+    </CartProvider>
   );
 }
 
