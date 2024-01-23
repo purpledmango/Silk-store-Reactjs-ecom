@@ -12,15 +12,17 @@ import { BsArrowRightShort } from "react-icons/bs";
 import { useEffect, useState } from "react";
 import Login from "./auth/Login";
 import { fetchAllCategories } from "../services/products.js";
+import { useCart } from "../context/cartContext.jsx";
 
 const Nav = () => {
   const [menuShow, setMenuShow] = useState(false);
   const [triggerLogin, setTriggerLogin] = useState(false);
   const [mainMenu, setMainMenu] = useState([]);
+  const { cart } = useCart()
   const [user, setUser] = useState({
     user: null,
     email: null,
-    cart: [],
+
     wishlist: [],
   });
 
@@ -142,27 +144,28 @@ const Nav = () => {
         <div className="relative w-full lg:w-2/6 mr-8">
           <ul className="relative flex justify-end  lg:justify-evenly gap-8 lg:gap-0 items-center w-full">
             <>
-              <li className="text-sm hover:cursor-pointer flex gap-2">
-                <div className="text-xl">{rightSubLogos[0]}</div>
+              <li className="text-sm hover:cursor-pointer flex  gap-2">
+
                 {user?.name && (
-                  <span className="hidden lg:block">{user.name}</span>
+                  <div className="hidden lg:block">{user.name}
+                    <div className="text-xl">{rightSubLogos[0]}</div></div>
                 )}
                 {!user?.name && (
-                  <div className="hidden lg:block">
-                    <span
-                      onClick={() => {
-                        setTriggerLogin(!triggerLogin);
-                      }}
-                    >
-                      Login
-                    </span>
+                  <div className="hidden lg:block lg:flex gap-2" onClick={() => {
+                    setTriggerLogin(!triggerLogin);
+                  }}>
+                    <div className="text-xl">{rightSubLogos[0]}</div>
+                    <span>Login</span>
+
                   </div>
                 )}
               </li>
 
-              <li className="text-sm hover:cursor-pointer flex gap-2">
-                <div className="text-xl">{rightSubLogos[1]}</div>
-                <span className="hidden lg:block">Favourites</span>
+              <li className="text-sm hover:cursor-pointer ">
+                <Link className="flex gap-2" to="/wishlist">
+                  <div className="text-xl">{rightSubLogos[1]}</div>
+                  <span className="hidden lg:block">Favourites</span>
+                </Link>
               </li>
               <li className="block lg:hidden md:hover:cursor-pointer">
                 <div className="text-xl">
@@ -170,16 +173,18 @@ const Nav = () => {
                 </div>
               </li>
 
-              <li className="text-sm hover:cursor-pointer flex gap-2">
-                <div className="text-xl">{rightSubLogos[2]}</div>
-                {user?.cart.length ? (
-                  <>
-                    <span className="hidden lg:block">Shopping bag</span>(
-                    {user.cart.length})
-                  </>
-                ) : (
-                  <span className="hidden lg:block">Shopping bag (0)</span>
-                )}
+              <li className="text-sm hover:cursor-pointer ">
+                <Link to="/cart" className="flex gap-2">
+                  <div className="text-xl">{rightSubLogos[2]}</div>
+                  {cart.length > 0 ? (
+                    <>
+                      <span className="hidden lg:block">Shopping bag</span>(
+                      {cart.length})
+                    </>
+                  ) : (
+                    <span className="hidden lg:block">Shopping bag (0)</span>
+                  )}
+                </Link>
               </li>
             </>
           </ul>

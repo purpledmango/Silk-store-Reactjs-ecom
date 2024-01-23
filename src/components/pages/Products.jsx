@@ -5,17 +5,26 @@ import Filters from "../Filters";
 import SideBar from "../SiderBar";
 import { useParams } from "react-router-dom";
 import { useCart } from "../../context/cartContext";
+import Spinner from "../Spinner";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const { category } = useParams();
-  const { cart, addToCart } = useCart()
+  const { cart, addToCart } = useCart();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    document.title = `${category.toUpperCase()} - The Silk Store`;
+    setLoading(true);
+  }, [category]);
+
   useEffect(() => {
     const fetchNewData = async () => {
       try {
         const newData = await getSingleCategory(category);
         setProducts(newData);
+        setLoading(false);
       } catch (err) {
         console.error(err);
       }
@@ -38,8 +47,6 @@ const Products = () => {
     fetchCategoryData();
   }, []);
 
-  console.log("cart data", cart)
-
   return (
     <>
       {/* Accessibility Bar */}
@@ -52,20 +59,26 @@ const Products = () => {
           cat={category}
           setCat={setProducts} // Assuming setProducts is correct for updating the category
         />
+
         <div className="col-span-12 md:col-span-9 lg:col-span-10">
-          <ul className="grid grid-cols-2 lg:grid-cols-4 gap-4 mx-3 my-3">
-            {/* card */}
-            {Array.isArray(products) &&
-              products.map((item, key) => (
-                <ProductCard
-                  key={key}
-                  product={item}
-                  cart={cart}
-                  addToCart={addToCart}
-                />
-              ))}
-          </ul>
-          =
+          {loading ? (
+            <div className="w-full h-full flex justify-center items-center">
+              <Spinner />
+            </div>
+          ) : (
+            <ul className="grid grid-cols-2 lg:grid-cols-4 gap-4 mx-3 my-3">
+              {/* card */}
+              {Array.isArray(products) &&
+                products.map((item, key) => (
+                  <ProductCard
+                    key={key}
+                    product={item}
+
+
+                  />
+                ))}
+            </ul>
+          )}
         </div>
       </div>
     </>

@@ -14,7 +14,7 @@ const Footer = () => {
   };
   return (
     <footer className=" relative text-bg-accent flex flex-col items-center justify-center  w-full bg-footer-color min-h-[560px] mt-16 pt-16">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 place-items-center gap-4 w-full ">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 place-items-center gap-4 w-full text-md font-extralight ">
         <div className="flex flex-col items-center justify-items-center">
           <h6 className="text-center  text-4xl text-rose-600 ">
             The Silk Store
@@ -22,28 +22,28 @@ const Footer = () => {
           <span className="capitalize font-light text-xs">Elegant Fabrics</span>
         </div>
         <div>
-          <ul className="flex flex-col space-y-4 text-xl font-semibold">
+          <ul className="flex flex-col space-y-4 ">
             <li className="cursor-pointer">Ladies</li>
             <li className="cursor-pointer">Mens</li>
             <li className="cursor-pointer">Kids</li>
           </ul>
         </div>
         <div>
-          <ul className="flex flex-col space-y-4 text-xl font-semibold">
+          <ul className="flex flex-col space-y-4">
             <li className="cursor-pointer">Ladies</li>
             <li className="cursor-pointer">Mens</li>
             <li className="cursor-pointer">Kids</li>
           </ul>
         </div>
         <div>
-          <ul className="flex flex-col space-y-4 text-xl font-semibold">
+          <ul className="flex flex-col space-y-4">
             <li className="cursor-pointer">Lifestyle</li>
             <li className="cursor-pointer">Home</li>
             <li className="cursor-pointer">Jewellery</li>
           </ul>
         </div>
         <div>
-          <ul className="flex flex-col space-y-4 text-xl font-semibold">
+          <ul className="flex flex-col space-y-4">
             <li className="cursor-pointer">Ladies</li>
             <li className="cursor-pointer">Mens</li>
             <li className="cursor-pointer">Kids</li>
@@ -51,12 +51,12 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="h-24 w-full flex justify-center items-center mt-24 pt-12">
-        <div className="w-[80%] h-1 bg-bg-accent my-12"></div>
+      <div className="h-24 w-full flex justify-center items-center ">
+        <div className="w-[80%] h-[2px] bg-bg-accent "></div>
       </div>
 
-      <div className="w-full pb-12">
-        <ul className="flex w-full items-center justify-center gap-24 text-3xl">
+      <div className="w-full py-4">
+        <ul className="flex w-full items-center justify-between lg:justify-evenly gap-24 text-4xl">
           <li>
             <BsFacebook />
           </li>
