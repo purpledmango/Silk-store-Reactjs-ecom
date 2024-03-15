@@ -132,8 +132,8 @@ const Nav = () => {
         {/* Branding */}
         <div className="w-full lg:w-2/6 ">
           <div className="pl-16 flex items-center justify-center flex-col">
-            <h1 className=" text-left lg:text-center text-2xl lg:text-4xl text-rose-600 logo">
-              <Link to="/">The Neigbour<span className="text-black">hoood</span></Link>
+            <h1 className=" text-left lg:text-center text-2xl lg:text-4xl text-rose-600/80 logo">
+              <Link to="/">The Neigbour<span className="text-gray-900/70">hoood</span></Link>
             </h1>
 
           </div>

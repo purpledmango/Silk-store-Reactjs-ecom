@@ -8,10 +8,28 @@ const ImageSlider = () => {
   const category = categoryData;
 
   const variants = {
-    initial: { opacity: 0, x: -50 },
-    animate: { opacity: 1, x: 0 },
-    exit: { opacity: 0, x: 50 },
+    initial: {
+      opacity: 0,
+      x: -100, // Initial position off-screen to the left
+    },
+    animate: {
+      opacity: 1,
+      x: 0, // Slides in to the center
+      transition: {
+        duration: 0.5, // Adjust the duration as needed
+        ease: "easeInOut", // Add easing if desired
+      },
+    },
+    exit: {
+      opacity: 0,
+      x: 100, // Exits off-screen to the right
+      transition: {
+        duration: 0.5, // Adjust the duration as needed
+        ease: "easeInOut", // Add easing if desired
+      },
+    },
   };
+
 
   const transition = { duration: 0.3 }; // Adjust the duration as needed
 
@@ -24,7 +42,7 @@ const ImageSlider = () => {
   };
 
   return (
-    <div className=" relative my-6 w-full mx-5 flex justify-center items-center">
+    <div className=" relative w-full flex justify-center items-center">
       <div className="px-5 text-2xl hover:scale-125 hover:text-accent-color transition duration-300 ease-out delay-150">
         <button
           onClick={handlePrev}
@@ -47,14 +65,14 @@ const ImageSlider = () => {
             animate="animate"
             exit="exit"
             transition={transition}
-            className="w-48 h-48 flex flex-col justify-center  items-center my-5"
+            className="full md:w-[294px] lg:w-[220px] h-[320px] flex flex-col justify-center  items-center my-5"
           >
             <img
               src={category[index].img}
               alt={`Image ${index}`}
-              className="rounded-full object-cover"
+              className=" object-cover w-full h-full mx-auto"
             />
-            <span className="text-lg font-semibold">
+            <span className="w-full text-center text-lg font-semibold bg-gray-500/20 shadow-lg shadow-accent-color/30">
               {category[index].name}
             </span>
           </motion.div>
